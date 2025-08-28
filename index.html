@@ -77,6 +77,20 @@
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+        }
+        .menu-toggle:focus-visible { outline: 3px solid #10b981; }
+        .menu-toggle svg { width: 24px; height: 24px; color: #374151; }
+
         .logo {
             display: flex;
             align-items: center;
@@ -103,6 +117,12 @@
             display: flex;
             gap: 30px;
             align-items: center;
+        }
+
+        /* Collapsible nav for mobile */
+        @media (max-width: 768px) {
+            .nav-menu { display: none; width: 100%; flex-direction: column; gap: 10px; }
+            .nav-menu.open { display: flex; }
         }
 
         .nav-item {
@@ -179,7 +199,7 @@
         }
 
         .hero h1 {
-            font-size: 48px;
+            font-size: clamp(28px, 6vw, 48px);
             font-weight: 800;
             color: #111827;
             margin-bottom: 10px;
@@ -187,7 +207,7 @@
         }
 
         .hero h2 {
-            font-size: 48px;
+            font-size: clamp(24px, 6vw, 48px);
             color: #10b981;
             margin-bottom: 20px;
             font-weight: 300;
@@ -540,6 +560,13 @@
             margin: 0 auto;
         }
 
+        /* Tablet breakpoint */
+        @media (max-width: 1024px) {
+            .header { padding: 16px 24px; }
+            .courses-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+            .footer-content { grid-template-columns: 1fr 1fr; }
+        }
+
         .course-card {
             background: white;
             border-radius: 15px;
@@ -711,13 +738,16 @@
             .header {
                 padding: 15px 20px;
                 flex-direction: column;
-                gap: 15px;
+                gap: 10px;
             }
 
+            .menu-toggle { display: inline-flex; align-self: flex-end; }
+
             .nav-menu {
-                flex-wrap: wrap;
-                gap: 15px;
-                justify-content: center;
+                flex-wrap: nowrap;
+                gap: 8px;
+                justify-content: flex-start;
+                align-items: stretch;
             }
 
             .hero {
@@ -784,7 +814,14 @@
             <div class="logo-icon">M</div>
             MindfulAI
         </div>
-        <nav class="nav-menu" aria-label="Navigasi utama">
+        <button class="menu-toggle" id="menuToggle" aria-label="Buka menu" aria-expanded="false" aria-controls="primaryNav">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+        <nav id="primaryNav" class="nav-menu" aria-label="Navigasi utama">
             <a href="index.html" class="nav-item active" aria-current="page">Home</a>
             <a href="artikel.html" class="nav-item">Artikel Cerdas</a>
             <a href="jurnal.html" class="nav-item">Jurnal Pintar</a>
@@ -1017,6 +1054,16 @@
     <script>
         // Smooth interactions
         document.addEventListener('DOMContentLoaded', function() {
+            // Mobile nav toggle
+            const menuToggle = document.getElementById('menuToggle');
+            const primaryNav = document.getElementById('primaryNav');
+            if (menuToggle && primaryNav) {
+                menuToggle.addEventListener('click', function() {
+                    const isOpen = primaryNav.classList.toggle('open');
+                    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                });
+            }
+
             // Add hover effects to cards
             const cards = document.querySelectorAll('.course-card');
             cards.forEach(card => {
