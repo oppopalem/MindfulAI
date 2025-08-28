@@ -1,0 +1,2112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MindfulAI adalah platform kesehatan mental berbasis AI untuk remaja Indonesia: artikel cerdas, jurnal pintar, dan dukungan positif.">
+    <meta name="keywords" content="kesehatan mental, mental health, remaja, AI, jurnal, artikel">
+    <meta name="author" content="MindfulAI">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#10b981">
+    <link rel="canonical" href="/artikel.html">
+    <link rel="icon" href="assets/mindfulai-favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="assets/mindfulai-favicon.svg" type="image/svg+xml" sizes="16x16">
+    <link rel="icon" href="assets/mindfulai-favicon.svg" type="image/svg+xml" sizes="32x32">
+    <link rel="apple-touch-icon" href="assets/mindfulai-logo.svg">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <meta property="og:title" content="MindfulAI - Artikel Kesehatan Mental">
+    <meta property="og:description" content="Platform kesehatan mental pintar untuk remaja Indonesia. Artikel informatif dan tips kesehatan mental.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="/artikel.html">
+    <meta property="og:image" content="/og-image.png">
+    <title>MindfulAI - Artikel Kesehatan Mental</title>
+    <script src="ai_chat.js" defer></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0fdf4;
+            line-height: 1.6;
+            scrollbar-gutter: stable both-edges; /* Prevent layout shift when scrollbar toggles */
+        }
+
+        /* Accessibility: focus styles */
+        :focus-visible {
+            outline: 3px solid #10b981;
+            outline-offset: 2px;
+        }
+
+        /* Skip link */
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+        .skip-link:focus {
+            left: 20px;
+            top: 20px;
+            width: auto;
+            height: auto;
+            background: #10b981;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            z-index: 1000;
+        }
+
+        /* Header Styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: #065f46;
+        }
+
+        .logo-icon {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 8px;
+            margin-right: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-item {
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item.active {
+            background: #10b981;
+            color: white;
+        }
+
+        .nav-item:hover:not(.active) {
+            background: #f3f4f6;
+            color: #10b981;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .login-btn {
+            background: transparent;
+            border: none;
+            color: #374151;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .login-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .start-btn:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 80px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 10px;
+            line-height: 1.1;
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            color: #10b981;
+            margin-bottom: 20px;
+            font-weight: 300;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: #6b7280;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .cta-btn:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+        }
+
+        .hero-icon {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .brain-icon {
+            width: 280px;
+            height: 280px;
+            background: linear-gradient(135deg, #10b981, #34d399);
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .brain-svg {
+            width: 140px;
+            height: 140px;
+            fill: white;
+        }
+
+        .ai-transformation-icon {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .icon-container {
+            width: 280px;
+            height: 280px;
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border: 3px solid #10b981;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 8px 32px rgba(16, 185, 129, 0.2);
+        }
+
+        .ai-brain-svg {
+            width: 140px;
+            height: 140px;
+        }
+
+        .floating-ai-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .ai-element {
+            position: absolute;
+            font-size: 24px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .ai-element.ai-1 {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .ai-element.ai-2 {
+            top: 15%;
+            right: 15%;
+            animation-delay: 0.5s;
+        }
+
+        .ai-element.ai-3 {
+            bottom: 25%;
+            left: 15%;
+            animation-delay: 1s;
+        }
+
+        .ai-element.ai-4 {
+            bottom: 20%;
+            right: 10%;
+            animation-delay: 1.5s;
+        }
+
+        .floating-m-logo {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: white;
+            margin: 0 50px;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 80px;
+        }
+
+        .stats-header {
+            font-size: 24px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .stats-subtext {
+            color: #6b7280;
+            font-size: 16px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        /* Stats Cards */
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .stat-trend {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .stat-trend.positive {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .stat-trend.negative {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Stats Insights */
+        .stats-insights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .insight-item {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 24px;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .insight-item h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .insight-item p {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        /* Articles Grid Section */
+        .articles-section {
+            padding: 0 50px 80px;
+            text-align: center;
+        }
+
+        .articles-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 15px;
+        }
+
+        .articles-subtitle {
+            color: #6b7280;
+            font-size: 16px;
+            margin-bottom: 50px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 20px;
+            padding: 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            border: 1px solid #f3f4f6;
+            position: relative;
+        }
+
+        .article-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .article-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border-radius: 0;
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .article-card:hover .article-image img {
+            transform: scale(1.05);
+        }
+
+        .article-content {
+            padding: 25px;
+        }
+
+        .article-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            text-align: left;
+        }
+
+        .article-description {
+            color: #6b7280;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .article-date {
+            color: #9ca3af;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .article-read-time {
+            color: #10b981;
+            font-size: 13px;
+            font-weight: 600;
+            background: #ecfdf5;
+            padding: 4px 8px;
+            border-radius: 12px;
+        }
+
+        .article-tags {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            color: #374151;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .tag:hover {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .article-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .read-more-link {
+            color: #10b981;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .read-more-link:hover {
+            color: #059669;
+            gap: 8px;
+        }
+
+        .article-stats {
+            display: flex;
+            gap: 16px;
+            color: #9ca3af;
+            font-size: 13px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Featured Article Section */
+        .featured-section {
+            padding: 0 50px 80px;
+            text-align: center;
+        }
+
+        .featured-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 15px;
+        }
+
+        .featured-subtitle {
+            color: #6b7280;
+            font-size: 16px;
+            margin-bottom: 50px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .featured-article {
+            background: white;
+            border-radius: 24px;
+            padding: 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            max-width: 900px;
+            margin: 0 auto;
+            overflow: hidden;
+            border: 1px solid #f3f4f6;
+        }
+
+        .featured-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 0;
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-content {
+            padding: 40px;
+        }
+
+        .featured-content h3 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .featured-content p {
+            color: #6b7280;
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .featured-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .featured-date {
+            color: #9ca3af;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .featured-read-time {
+            color: #10b981;
+            font-size: 14px;
+            font-weight: 600;
+            background: #ecfdf5;
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+        .read-more-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .read-more-btn:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Responsive Design for Articles */
+        @media (max-width: 768px) {
+            .articles-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 0 20px;
+            }
+            
+            .featured-article {
+                margin: 0 20px;
+            }
+            
+            .featured-content {
+                padding: 30px 25px;
+            }
+            
+            .featured-content h3 {
+                font-size: 24px;
+            }
+            
+            .featured-image {
+                height: 200px;
+            }
+            
+            .articles-section, .featured-section {
+                padding: 0 0 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .articles-grid {
+                padding: 0 15px;
+            }
+            
+            .featured-article {
+                margin: 0 15px;
+            }
+            
+            .featured-content {
+                padding: 25px 20px;
+            }
+            
+            .featured-content h3 {
+                font-size: 22px;
+            }
+            
+            .article-content {
+                padding: 20px;
+            }
+        }
+
+        /* Main Content with Sidebar Layout */
+        .main-content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 50px;
+        }
+
+        .main-content {
+            width: 100%;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .sidebar-widget {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f3f4f6;
+        }
+
+        .widget-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Quick Tips Widget */
+        .quick-tips .tip-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border-left: 4px solid #10b981;
+        }
+
+        .quick-tips .tip-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .tip-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .quick-tips .tip-item p {
+            color: #374151;
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Quiz Widget */
+        .quiz-widget .quiz-description {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-question p {
+            color: #111827;
+            font-size: 14px;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background-color 0.2s ease;
+        }
+
+        .quiz-option:hover {
+            background: #f3f4f6;
+        }
+
+        .quiz-option input[type="radio"] {
+            accent-color: #10b981;
+        }
+
+        .quiz-option span {
+            color: #374151;
+            font-size: 14px;
+        }
+
+        .quiz-submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .quiz-submit-btn:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+            transform: translateY(-1px);
+        }
+
+        /* Trending Topics Widget */
+        .trending-topics .topic-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .trending-topics .topic-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .trending-topics .topic-item:hover {
+            background: #f1f5f9;
+            transform: translateX(4px);
+        }
+
+        .topic-number {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .topic-content h4 {
+            color: #111827;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .topic-content p {
+            color: #6b7280;
+            font-size: 12px;
+            margin: 0;
+        }
+
+        /* AI Chatbot Widget */
+        .chatbot-widget .chatbot-description {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .chatbot-preview {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .chat-message {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .ai-avatar {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .ai-message p {
+            color: #374151;
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .chatbot-start-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .chatbot-start-btn:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+            transform: translateY(-1px);
+        }
+
+        /* Weekly Challenge Widget */
+        .challenge-widget .challenge-description {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .challenge-content h4 {
+            color: #111827;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .challenge-content p {
+            color: #374151;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .challenge-progress {
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            color: #6b7280;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .challenge-join-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .challenge-join-btn:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+            transform: translateY(-1px);
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 60px 50px;
+            margin: 0 50px 80px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .newsletter-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .newsletter-subtitle {
+            font-size: 16px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 16px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 16px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .newsletter-btn {
+            background: white;
+            color: #10b981;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 16px;
+        }
+
+        .newsletter-btn:hover { 
+            background: #f3f4f6;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 60px 50px 30px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo-icon {
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .footer-description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .footer-column h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+
+        /* Respect reduced motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header { 
+                flex-direction: column; 
+                gap: 20px; 
+                padding: 20px;
+            }
+            .nav-menu { gap: 15px; }
+            .auth-buttons { gap: 10px; }
+            .hero { 
+                flex-direction: column; 
+                padding: 40px 20px; 
+                text-align: center;
+            }
+            .hero h1, .hero h2 { font-size: 32px; }
+            .articles-grid { grid-template-columns: 1fr; }
+            .newsletter-form { flex-direction: column; }
+            .stats-section, .newsletter-section { margin: 0 20px 40px; }
+            .main-content-wrapper {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 0 20px;
+            }
+            .sidebar {
+                position: static;
+                order: -1;
+            }
+            .articles-section, .featured-section { padding: 0 0 40px; }
+            .footer-content { grid-template-columns: 1fr; }
+            .footer { padding: 40px 20px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header class="header" role="banner">
+        <div class="logo">
+            <div class="logo-icon">M</div>
+            MindfulAI
+        </div>
+        <nav class="nav-menu" aria-label="Navigasi utama">
+            <a href="index.html" class="nav-item">Home</a>
+            <a href="artikel.html" class="nav-item active" aria-current="page">Artikel Cerdas</a>
+            <a href="jurnal.html" class="nav-item">Jurnal Pintar</a>
+            <a href="about.html" class="nav-item">About Me</a>
+            <div class="auth-buttons">
+                <button class="login-btn" type="button" aria-label="Masuk">Login</button>
+                <button class="start-btn" type="button" aria-label="Mulai sekarang">✨ Start now</button>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Artikel</h1>
+                <h2>Kesehatan Mental</h2>
+                <p>Dapatkan wawasan mendalam tentang kesehatan mental, tips praktis, dan inspirasi untuk perjalanan kesejahteraan psikologis Anda. Setiap artikel dirancang untuk memberikan solusi yang dapat diterapkan dalam kehidupan sehari-hari.</p>
+                <button class="cta-btn">Mulai Baca</button>
+            </div>
+            <div class="hero-icon">
+                <div class="ai-transformation-icon">
+                    <div class="icon-container">
+                        <svg class="ai-brain-svg" viewBox="0 0 24 24" fill="url(#aiGradient)">
+                            <defs>
+                                <linearGradient id="aiGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+                                    <stop offset="50%" style="stop-color:#34d399;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <!-- AI Brain with Circuit Pattern -->
+                            <path d="M12,2A3,3 0 0,1 15,5V11A3,3 0 0,1 12,14A3,3 0 0,1 9,11V5A3,3 0 0,1 12,2M19,12A7,7 0 0,1 12,19A7,7 0 0,1 5,12H7A5,5 0 0,0 12,17A5,5 0 0,0 17,12H19Z"/>
+                            <!-- Circuit Lines -->
+                            <path d="M2,8 L4,8 M20,8 L22,8 M2,16 L4,16 M20,16 L22,16" stroke="#10b981" stroke-width="1.5" stroke-linecap="round"/>
+                            <!-- AI Nodes -->
+                            <circle cx="3" cy="8" r="1.5" fill="#10b981"/>
+                            <circle cx="21" cy="8" r="1.5" fill="#10b981"/>
+                            <circle cx="3" cy="16" r="1.5" fill="#10b981"/>
+                            <circle cx="21" cy="16" r="1.5" fill="#10b981"/>
+                        </svg>
+                    </div>
+                    <div class="floating-ai-elements">
+                        <div class="ai-element ai-1">
+                            <div class="floating-m-logo">M</div>
+                        </div>
+                        <div class="ai-element ai-2">
+                            <div class="floating-m-logo">M</div>
+                        </div>
+                        <div class="ai-element ai-3">
+                            <div class="floating-m-logo">M</div>
+                        </div>
+                        <div class="ai-element ai-4">
+                            <div class="floating-m-logo">M</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="stats-header">Statistik Kesehatan Mental Indonesia 2024</div>
+            <div class="stats-subtext">Data terbaru berdasarkan penelitian dan survei nasional</div>
+            
+            <!-- Key Statistics Cards -->
+            <div class="stats-cards">
+                <div class="stat-card">
+                    <div class="stat-icon"></div>
+                    <div class="stat-number">73%</div>
+                    <div class="stat-label">Remaja mengalami stres</div>
+                    <div class="stat-trend positive">+12% dari 2023</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon"></div>
+                    <div class="stat-number">65%</div>
+                    <div class="stat-label">Kualitas tidur buruk</div>
+                    <div class="stat-trend negative">+8% dari 2023</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon"></div>
+                    <div class="stat-number">89%</div>
+                    <div class="stat-label">Penggunaan media sosial berlebihan</div>
+                    <div class="stat-trend negative">+15% dari 2023</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon"></div>
+                    <div class="stat-number">42%</div>
+                    <div class="stat-label">Mencari bantuan profesional</div>
+                    <div class="stat-trend positive">+18% dari 2023</div>
+                </div>
+            </div>
+            
+            <!-- Chart Container -->
+            <div class="chart-container">
+                <canvas id="mentalHealthChart" width="800" height="400"></canvas>
+            </div>
+            
+            <!-- Additional Insights -->
+            <div class="stats-insights">
+                <div class="insight-item">
+                    <h4>Faktor Utama Stres</h4>
+                    <p>Pendidikan (45%), Keluarga (32%), Media Sosial (23%)</p>
+                </div>
+                <div class="insight-item">
+                    <h4>Tren Positif</h4>
+                    <p>Kesadaran kesehatan mental meningkat 25% dalam 2 tahun terakhir</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content with Sidebar -->
+        <div class="main-content-wrapper">
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Featured Article -->
+                <section class="featured-section">
+                    <h2 class="featured-title">Artikel Unggulan</h2>
+                    <p class="featured-subtitle">Artikel pilihan yang wajib dibaca untuk memahami kesehatan mental</p>
+                    <article class="featured-article">
+                        
+                        <div class="featured-content">
+                            <h3>5 Langkah Sederhana untuk Mengelola Stres Sehari-hari</h3>
+                            <p>Stres adalah bagian normal dari kehidupan, tapi tidak harus mengendalikan hidup Anda. Temukan strategi praktis yang bisa diterapkan mulai hari ini untuk mengurangi stres dan meningkatkan kesejahteraan mental Anda.</p>
+                            <div class="featured-meta">
+                                <span class="featured-date">Baru dipublikasikan</span>
+                                <span class="featured-read-time">10 min baca</span>
+                            </div>
+                            <button class="read-more-btn">
+                                Baca Selengkapnya
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-1.41-1.41z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </article>
+                </section>
+
+        <!-- Articles Grid -->
+        <section class="articles-section">
+            <h2 class="articles-title">Artikel Terbaru</h2>
+            <p class="articles-subtitle">Kumpulan artikel terbaru tentang berbagai topik kesehatan mental</p>
+            <div class="articles-grid">
+                <article class="article-card">
+                    
+                    <div class="article-content">
+                        <h3 class="article-title">Praktik Mindfulness untuk Pemula</h3>
+                        <p class="article-description">Mulai perjalanan mindfulness Anda dengan teknik sederhana yang bisa dilakukan di mana saja. Temukan kedamaian dalam keseharian.</p>
+                        <div class="article-meta">
+                            <span class="article-date">2 jam yang lalu</span>
+                            <span class="article-read-time">5 min baca</span>
+                        </div>
+                        <div class="article-tags">
+                            <span class="tag">Mindfulness</span>
+                            <span class="tag">Pemula</span>
+                            <span class="tag">Meditasi</span>
+                        </div>
+                        <div class="article-actions">
+                            <a href="#" class="read-more-link">
+                                Baca Selengkapnya
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-1.41-1.41z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    
+                    <div class="article-content">
+                        <h3 class="article-title">Hubungan Antara Tidur dan Kesehatan Mental</h3>
+                        <p class="article-description">Tidur berkualitas adalah fondasi kesehatan mental yang baik. Pelajari cara mengoptimalkan pola tidur untuk kesejahteraan psikologis.</p>
+                        <div class="article-meta">
+                            <span class="article-date">1 hari yang lalu</span>
+                            <span class="article-read-time">7 min baca</span>
+                        </div>
+                        <div class="article-tags">
+                            <span class="tag">Tidur</span>
+                            <span class="tag">Kesehatan</span>
+                            <span class="tag">Tips</span>
+                        </div>
+                        <div class="article-actions">
+                            <a href="#" class="read-more-link">
+                                Baca Selengkapnya
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-1.41-1.41z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    
+                    <div class="article-content">
+                        <h3 class="article-title">Membangun Ketahanan Mental</h3>
+                        <p class="article-description">Ketahanan mental adalah kemampuan untuk bangkit dari kesulitan. Temukan strategi praktis untuk mengembangkan resilience dalam hidup.</p>
+                        <div class="article-meta">
+                            <span class="article-date">3 hari yang lalu</span>
+                            <span class="article-read-time">8 min baca</span>
+                        </div>
+                        <div class="article-tags">
+                            <span class="tag">Resilience</span>
+                            <span class="tag">Ketahanan</span>
+                            <span class="tag">Psikologi</span>
+                        </div>
+                        <div class="article-actions">
+                            <a href="#" class="read-more-link">
+                                Baca Selengkapnya
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-1.41-1.41z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    
+                    <div class="article-content">
+                        <h3 class="article-title">Menyeimbangkan Kerja dan Kesehatan Mental</h3>
+                        <p class="article-description">Produktivitas tinggi tidak harus mengorbankan kesehatan mental. Pelajari cara mencapai work-life balance yang optimal.</p>
+                        <div class="article-meta">
+                            <span class="article-date">5 hari yang lalu</span>
+                            <span class="article-read-time">6 min baca</span>
+                        </div>
+                        <div class="article-tags">
+                            <span class="tag">Kerja</span>
+                            <span class="tag">Balance</span>
+                            <span class="tag">Produktivitas</span>
+                        </div>
+                        <div class="article-actions">
+                            <a href="#" class="read-more-link">
+                                Baca Selengkapnya
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-1.41-1.41z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    
+                    <div class="article-content">
+                        <h3 class="article-title">Mengembangkan Kebiasaan Positif</h3>
+                        <p class="article-description">Kebiasaan kecil bisa membawa perubahan besar dalam hidup. Mulai dari hal sederhana untuk transformasi mental yang signifikan.</p>
+                        <div class="article-meta">
+                            <span class="article-date">1 minggu yang lalu</span>
+                            <span class="article-read-time">9 min baca</span>
+                        </div>
+                        <div class="article-tags">
+                            <span class="tag">Kebiasaan</span>
+                            <span class="tag">Perubahan</span>
+                            <span class="tag">Motivasi</span>
+                        </div>
+                        <div class="article-actions">
+                            <a href="#" class="read-more-link">
+                                Baca Selengkapnya
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-1.41-1.41z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    
+                    <div class="article-content">
+                        <h3 class="article-title">Komunikasi Sehat dalam Hubungan</h3>
+                        <p class="article-description">Komunikasi yang baik adalah kunci hubungan yang sehat. Tingkatkan kualitas hubungan melalui teknik komunikasi efektif.</p>
+                        <div class="article-meta">
+                            <span class="article-date">1 minggu yang lalu</span>
+                            <span class="article-read-time">7 min baca</span>
+                        </div>
+                        <div class="article-tags">
+                            <span class="tag">Komunikasi</span>
+                            <span class="tag">Hubungan</span>
+                            <span class="tag">Sosial</span>
+                        </div>
+                        <div class="article-actions">
+                            <a href="#" class="read-more-link">
+                                Baca Selengkapnya
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-1.41-1.41z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter-section">
+            <h2 class="newsletter-title">Dapatkan Artikel Terbaru</h2>
+            <p class="newsletter-subtitle">Berlangganan newsletter kami untuk mendapatkan artikel kesehatan mental terbaru langsung ke email Anda</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Masukkan email Anda" class="newsletter-input" required>
+                <button type="submit" class="newsletter-btn">Berlangganan</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="footer-logo-icon">M</div>
+                    MindfulAI
+                </div>
+                <p class="footer-description">Platform kesehatan mental pintar yang menggunakan AI untuk memberikan dukungan personal dan insight mendalam untuk remaja Indonesia dalam menjaga kesehatan mental mereka.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.219-.359-1.219c0-1.142.662-1.997 1.482-1.997.699 0 1.219.219 1.219 1.482 0 .902-.576 2.263-.871 3.518-.248 1.219.609 2.262 1.748 2.262 2.262 0 3.995-2.786 3.995-6.781 0-2.786-1.748-4.533-4.533-4.533-3.078 0-4.916 2.349-4.916 4.533 0 .871.326 1.482.734 1.957.219.326.248.576.184.871-.041.326-.145.576-.145.576-.184.734-.576 1.219-1.219 1.219-.576 0-1.482-.734-1.482-2.262 0-2.262 1.748-4.533 5.043-4.533 2.613 0 4.71 1.997 4.71 4.533 0 3.439-1.997 5.957-4.533 5.957-2.262 0-4.71-1.219-4.71-3.078 0-.576.184-1.219.576-1.748.576-.734.734-1.482.734-2.262 0-1.219-.609-2.262-1.748-2.262-.871 0-1.482.734-1.482 1.748v11.987C18.624 21.104 23.971 16.737 23.971 10.987 23.971 5.367 18.604.029 11.987.029z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Layanan</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Konsultasi AI</a></li>
+                    <li><a href="#">Jurnal Harian</a></li>
+                    <li><a href="#">Artikel Kesehatan</a></li>
+                    <li><a href="#">Tes Psikologi</a></li>
+                    <li><a href="#">Komunitas Support</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Tentang</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Visi & Misi</a></li>
+                    <li><a href="#">Tim Kami</a></li>
+                    <li><a href="#">Karir</a></li>
+                    <li><a href="#">Press Kit</a></li>
+                    <li><a href="#">Kontak</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Dukungan</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Bantuan</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Kebijakan Privasi</a></li>
+                    <li><a href="#">Syarat & Ketentuan</a></li>
+                    <li><a href="#">Keamanan</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 MindfulAI. Semua hak cipta dilindungi. Dibuat dengan ❤️ untuk kesehatan mental remaja Indonesia.</p>
+        </div>
+    </footer>
+
+    <noscript>
+        Harap aktifkan JavaScript untuk pengalaman terbaik di situs MindfulAI.
+    </noscript>
+
+    <!-- Start Journey Modal -->
+    <div id="startModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="startModalTitle" hidden>
+        <div id="startModalOverlay" class="modal-overlay" tabindex="-1"></div>
+        <div class="modal-container" aria-live="polite">
+            <div class="modal-card" tabindex="0">
+                <div class="modal-header">
+                    <div class="modal-icon">✨</div>
+                    <h3 class="modal-title" id="startModalTitle">Selamat Datang di MindfulAI</h3>
+                </div>
+                <p class="modal-text">Kami akan mendampingi perjalanan kesehatan mental Anda dengan wawasan yang personal, jurnal pintar, dan artikel terkurasi.</p>
+                <div class="modal-actions">
+                    <button class="modal-btn primary" data-close-modal>Mulai Sekarang</button>
+                    <button class="modal-btn ghost" data-close-modal>Tidak, Nanti</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbot widget markup -->
+    <div id="chatbot" class="chatbot" aria-live="polite" hidden>
+        <div class="chat-header">
+            <div class="chat-title">MindfulAI Assistant</div>
+            <button id="chatClose" class="chat-close" aria-label="Tutup">×</button>
+        </div>
+        <div id="chatBody" class="chat-body">
+            <div class="msg bot">Hai, aku MindfulAI. Aku siap mendengarkan. Bagaimana perasaanmu hari ini?</div>
+        </div>
+        <form id="chatForm" class="chat-input" autocomplete="off">
+            <input id="chatInput" type="text" placeholder="Tulis pesanmu..." aria-label="Ketik pesan" required>
+            <button type="submit">Kirim</button>
+        </form>
+    </div>
+    <button id="chatLauncher" class="chat-launcher" aria-label="Buka Chatbot">💬</button>
+
+    <style>
+        /* Modal styles */
+        .modal { position: fixed; inset: 0; z-index: 1000; }
+        .modal[hidden] { display: none !important; }
+        .modal-overlay { position: absolute; inset: 0; background: rgba(17,24,39,0.55); backdrop-filter: blur(2px); }
+        .modal-container { position: relative; min-height: 100%; display: flex; align-items: center; justify-content: center; padding: 24px; }
+        .modal-card { background: #ffffff; width: 100%; max-width: 520px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); padding: 24px; outline: none; }
+        .modal-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+        .modal-icon { width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, #10b981, #059669); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+        .modal-title { font-size: 20px; font-weight: 800; color: #111827; }
+        .modal-text { color: #6b7280; font-size: 14px; line-height: 1.7; margin: 8px 0 18px; }
+        .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+        .modal-btn { padding: 10px 16px; border-radius: 10px; font-weight: 700; font-size: 14px; border: none; cursor: pointer; }
+        .modal-btn.primary { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
+        .modal-btn.primary:hover { background: linear-gradient(135deg, #059669, #047857); }
+        .modal-btn.ghost { background: #f3f4f6; color: #374151; }
+        .modal-btn.ghost:hover { background: #e5e7eb; }
+        .no-scroll { overflow: hidden; }
+
+        @media (max-width: 480px) {
+            .modal-card { padding: 20px; }
+            .modal-title { font-size: 18px; }
+        }
+
+        /* Chatbot widget */
+        .chat-launcher { position: fixed; right: 24px; bottom: 24px; z-index: 999; background: linear-gradient(135deg, #10b981, #059669); color: #fff; border: none; width: 56px; height: 56px; border-radius: 50%; box-shadow: 0 10px 30px rgba(0,0,0,0.2); cursor: pointer; font-size: 22px; display: flex; align-items: center; justify-content: center; }
+        .chat-launcher:hover { background: linear-gradient(135deg, #059669, #047857); }
+        .chatbot { position: fixed; right: 24px; bottom: 92px; width: 340px; max-height: 70vh; display: flex; flex-direction: column; background: #ffffff; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); overflow: hidden; z-index: 1000; }
+        .chatbot[hidden] { display: none !important; }
+        .chat-header { display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, #10b981, #059669); color: #fff; padding: 12px 14px; }
+        .chat-title { font-weight: 800; }
+        .chat-close { background: rgba(255,255,255,0.15); color: #fff; border: none; width: 32px; height: 32px; border-radius: 8px; cursor: pointer; }
+        .chat-body { padding: 12px; display: flex; flex-direction: column; gap: 8px; overflow: auto; }
+        .msg { max-width: 80%; padding: 10px 12px; border-radius: 12px; font-size: 14px; line-height: 1.4; }
+        .msg.bot { background: #ecfdf5; color: #065f46; border-top-left-radius: 4px; }
+        .msg.user { background: #10b981; color: #fff; margin-left: auto; border-top-right-radius: 4px; }
+        .chat-input { display: flex; gap: 8px; padding: 12px; border-top: 1px solid #e5e7eb; background: #fff; }
+        .chat-input input { flex: 1; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font: inherit; }
+        .chat-input button { background: linear-gradient(135deg, #10b981, #059669); color: #fff; border: none; border-radius: 10px; padding: 10px 12px; font-weight: 700; cursor: pointer; }
+        .chat-input button:hover { background: linear-gradient(135deg, #059669, #047857); }
+
+        /* Crisis Alert and Suggestions Styling */
+        .crisis-alert .msg {
+            background: #f8d7da !important;
+            border: 1px solid #f5c6cb !important;
+            color: #721c24 !important;
+        }
+        
+        .emergency-contacts .msg {
+            background: #fff3cd !important;
+            border: 1px solid #ffeaa7 !important;
+            color: #856404 !important;
+        }
+        
+        .suggestions .msg {
+            background: #e8f5e8 !important;
+            border: 1px solid #c3e6c3 !important;
+            color: #155724 !important;
+        }
+        
+        .typing {
+            font-style: italic;
+            opacity: 0.7;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Modal functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('startModal');
+            const modalOverlay = document.getElementById('startModalOverlay');
+            const startBtn = document.querySelector('.start-btn');
+
+            function openModal() {
+                modal.hidden = false;
+                document.body.classList.add('no-scroll');
+                // Prevent layout shift by compensating for scrollbar
+                const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+                document.body.style.paddingRight = scrollbarWidth + 'px';
+            }
+
+            function closeModal() {
+                modal.hidden = true;
+                document.body.classList.remove('no-scroll');
+                document.body.style.paddingRight = '';
+            }
+
+            if (startBtn) {
+                startBtn.addEventListener('click', openModal);
+            }
+
+            if (modalOverlay) {
+                modalOverlay.addEventListener('click', closeModal);
+            }
+
+            document.querySelectorAll('[data-close-modal]').forEach(btn => {
+                btn.addEventListener('click', closeModal);
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && !modal.hidden) {
+                    closeModal();
+                }
+            });
+
+            // Chatbot functionality
+            const chatbot = document.getElementById('chatbot');
+            const chatLauncher = document.getElementById('chatLauncher');
+            const chatClose = document.getElementById('chatClose');
+            const chatBody = document.getElementById('chatBody');
+            const chatForm = document.getElementById('chatForm');
+            const chatInput = document.getElementById('chatInput');
+
+            function toggleChat() {
+                chatbot.hidden = !chatbot.hidden;
+            }
+
+            function addMessage(text, sender) {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `msg ${sender}`;
+                msgDiv.textContent = text;
+                chatBody.appendChild(msgDiv);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }
+
+            // Initialize MindfulAI
+            let ai;
+            let chatHistory = [];
+            let aiInitialized = false;
+
+            // Initialize AI when page loads
+            function initializeAI() {
+                if (aiInitialized) return;
+                
+                try {
+                    // Check if MindfulAI class is available
+                    if (typeof MindfulAI !== 'undefined') {
+                        ai = new MindfulAI();
+                        aiInitialized = true;
+                        console.log('MindfulAI initialized successfully');
+                    } else {
+                        // Load AI chat library if not available
+                        const script = document.createElement('script');
+                        script.src = 'ai_chat.js';
+                        script.onload = function() {
+                            if (typeof MindfulAI !== 'undefined') {
+                                ai = new MindfulAI();
+                                aiInitialized = true;
+                                console.log('MindfulAI loaded and initialized');
+                            } else {
+                                console.error('MindfulAI class not found after loading script');
+                            }
+                        };
+                        script.onerror = function() {
+                            console.error('Failed to load MindfulAI script');
+                        };
+                        document.head.appendChild(script);
+                    }
+                } catch (error) {
+                    console.error('Error initializing MindfulAI:', error);
+                }
+            }
+
+            // Try to initialize immediately
+            initializeAI();
+
+            // Also try on DOMContentLoaded as backup
+            document.addEventListener('DOMContentLoaded', initializeAI);
+
+            // Try again after a short delay
+            setTimeout(initializeAI, 1000);
+
+            function botReply(userMessage) {
+                // Use MindfulAI if available, otherwise fallback
+                if (ai) {
+                    // Get chat history from DOM
+                    const history = Array.from(document.querySelectorAll('#chatBody .msg')).map(n => ({
+                        role: n.classList.contains('bot') ? 'assistant' : 'user',
+                        content: n.textContent
+                    })).slice(-10);
+
+                    // Show typing indicator
+                    addMessage('MindfulAI sedang mengetik...', 'bot typing');
+                    
+                    // Get AI response
+                    ai.chat(userMessage, history).then(response => {
+                        // Remove typing indicator
+                        const typingMsg = document.querySelector('#chatBody .msg.typing');
+                        if (typingMsg) {
+                            typingMsg.remove();
+                        }
+                        
+                        // Add AI response
+                        if (response && response.reply) {
+                            addMessage(response.reply, 'bot');
+                            
+                            // Add crisis alert if needed
+                            if (response.crisis) {
+                                addCrisisAlert(response);
+                            }
+                            
+                            // Add suggestions if available
+                            if (response.suggestions) {
+                                addSuggestions(response.suggestions);
+                            }
+                    } else {
+                            addMessage('Maaf, terjadi kendala. Coba lagi ya.', 'bot');
+                        }
+                    }).catch(error => {
+                        // Remove typing indicator
+                        const typingMsg = document.querySelector('#chatBody .msg.typing');
+                        if (typingMsg) {
+                            typingMsg.remove();
+                        }
+                        
+                        console.error('AI Error:', error);
+                        addMessage('Maaf, terjadi kesalahan. Silakan coba lagi.', 'bot');
+                    });
+                } else {
+                    // Fallback response if AI not loaded
+                    addMessage('Halo! Aku MindfulAI. Bagaimana perasaanmu hari ini?', 'bot');
+                }
+            }
+
+            // Add crisis alert
+            function addCrisisAlert(response) {
+                const alertDiv = document.createElement('div');
+                alertDiv.className = 'msg bot crisis-alert';
+                alertDiv.innerHTML = `
+                    <div style="background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 10px; border-radius: 8px; margin: 10px 0;">
+                        <strong>⚠️ KRISIS DETECTED!</strong><br>
+                        Keselamatanmu adalah prioritas utama. Jika kamu berisiko menyakiti diri, 
+                        segera hubungi layanan darurat atau orang terdekat.
+                    </div>
+                `;
+                
+                if (response.emergency_contacts) {
+                    const contactsDiv = document.createElement('div');
+                    contactsDiv.className = 'msg bot emergency-contacts';
+                    contactsDiv.innerHTML = `
+                        <div style="background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; padding: 10px; border-radius: 8px; margin: 10px 0;">
+                            <h4>📞 Kontak Darurat:</h4>
+                            ${Object.entries(response.emergency_contacts).map(([number, description]) => 
+                                `<div style="display: flex; justify-content: space-between; margin: 5px 0; padding: 5px 0; border-bottom: 1px solid #ffeaa7;">
+                                    <span><strong>${number}</strong></span>
+                                    <span>${description}</span>
+                                </div>`
+                            ).join('')}
+                        </div>
+                    `;
+                    document.getElementById('chatBody').appendChild(contactsDiv);
+                }
+                
+                document.getElementById('chatBody').appendChild(alertDiv);
+                document.getElementById('chatBody').scrollTop = document.getElementById('chatBody').scrollHeight;
+            }
+
+            // Add suggestions
+            function addSuggestions(suggestions) {
+                const suggestionsDiv = document.createElement('div');
+                suggestionsDiv.className = 'msg bot suggestions';
+                suggestionsDiv.innerHTML = `
+                    <div style="background: #e8f5e8; border: 1px solid #c3e6c3; color: #155724; padding: 10px; border-radius: 8px; margin: 10px 0;">
+                        <h4>💡 Saran:</h4>
+                        ${Object.entries(suggestions).map(([key, value]) => 
+                            `<div style="margin: 8px 0; padding: 8px; background: white; border-radius: 8px; border-left: 4px solid #28a745;">
+                                <strong>${key.replace('_', ' ').toUpperCase()}:</strong> ${value}
+                            </div>`
+                        ).join('')}
+                    </div>
+                `;
+                
+                document.getElementById('chatBody').appendChild(suggestionsDiv);
+                document.getElementById('chatBody').scrollTop = document.getElementById('chatBody').scrollHeight;
+            }
+
+            if (chatLauncher) chatLauncher.addEventListener('click', toggleChat);
+            if (chatClose) chatClose.addEventListener('click', toggleChat);
+
+            chatForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const val = chatInput.value.trim();
+                if (!val) return;
+                addMessage(val, 'user');
+                chatInput.value = '';
+                botReply(val);
+            });
+
+            // Modal button functionality
+            document.querySelector('#startModal .modal-btn.primary').addEventListener('click', function() {
+                closeModal();
+                toggleChat();
+            });
+
+            // Initialize Mental Health Chart
+            const ctx = document.getElementById('mentalHealthChart');
+            if (ctx) {
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Stres Tinggi', 'Stres Sedang', 'Stres Rendah', 'Tidak Stres'],
+                        datasets: [{
+                            data: [35, 38, 20, 7],
+                            backgroundColor: [
+                                '#ef4444', // Red for high stress
+                                '#f59e0b', // Orange for medium stress
+                                '#10b981', // Green for low stress
+                                '#3b82f6'  // Blue for no stress
+                            ],
+                            borderWidth: 0,
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 20,
+                                    usePointStyle: true,
+                                    font: {
+                                        size: 14,
+                                        weight: '500'
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                titleColor: '#fff',
+                                bodyColor: '#fff',
+                                borderColor: '#10b981',
+                                borderWidth: 1,
+                                cornerRadius: 8,
+                                displayColors: true
+                            }
+                        },
+                        cutout: '60%',
+                        animation: {
+                            animateRotate: true,
+                            animateScale: true,
+                            duration: 2000,
+                            easing: 'easeOutQuart'
+                        }
+                    }
+                });
+            }
+
+            // Animate stats numbers on scroll
+            const observerOptions = {
+                threshold: 0.5,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const statNumbers = entry.target.querySelectorAll('.stat-number');
+                        statNumbers.forEach(stat => {
+                            const target = parseInt(stat.textContent);
+                            let current = 0;
+                            const increment = target / 50;
+                            const timer = setInterval(() => {
+                                current += increment;
+                                if (current >= target) {
+                                    current = target;
+                                    clearInterval(timer);
+                                }
+                                stat.textContent = Math.floor(current) + '%';
+                            }, 30);
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const statsSection = document.querySelector('.stats-section');
+            if (statsSection) {
+                observer.observe(statsSection);
+            }
+        });
+    </script>
+</body>
+</html>

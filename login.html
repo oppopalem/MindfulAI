@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/mindfulai-favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="assets/mindfulai-favicon.svg" type="image/svg+xml" sizes="16x16">
+    <link rel="icon" href="assets/mindfulai-favicon.svg" type="image/svg+xml" sizes="32x32">
+  <title>Login - MindfulAI</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3fef7;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .login-container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      width: 350px;
+      text-align: center;
+    }
+    .login-container h2 {
+      margin-bottom: 20px;
+      color: #0a0a0a;
+    }
+    .login-container input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      outline: none;
+      font-size: 14px;
+    }
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      background: #00c27f;
+      border: none;
+      color: white;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .login-container button:hover {
+      background: #009e66;
+    }
+    .error {
+      color: red;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <h2>Login MindfulAI</h2>
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button onclick="login()">Login</button>
+    <p class="error" id="error-msg"></p>
+  </div>
+
+  <script>
+    function login() {
+      let user = document.getElementById("username").value;
+      let pass = document.getElementById("password").value;
+      let errorMsg = document.getElementById("error-msg");
+
+      // Logika sederhana (hardcoded)
+      if (user === "admin" && pass === "1234") {
+        // arahkan ke halaman index
+        window.location.href = "index.html";
+      } else {
+        errorMsg.textContent = "Username atau Password salah!";
+      }
+    }
+  </script>
+
+</body>
+</html>

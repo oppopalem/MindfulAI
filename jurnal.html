@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindfulAI - Jurnal Pintar</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Jurnal pintar untuk kesehatan mental dengan AI yang membantu tracking mood dan emosi harian">
+    <meta name="keywords" content="jurnal mental health, tracking mood, kesehatan mental, AI psikolog, mindfulness">
+    <meta name="author" content="MindfulAI">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#10b981">
+    <link rel="canonical" href="/jurnal.html">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="assets/mindfulai-favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="assets/mindfulai-favicon.svg" type="image/svg+xml" sizes="16x16">
+    <link rel="icon" href="assets/mindfulai-favicon.svg" type="image/svg+xml" sizes="32x32">
+    <link rel="apple-touch-icon" href="assets/mindfulai-logo.svg">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0fdf4; line-height: 1.6; scrollbar-gutter: stable both-edges; }
+        :focus-visible { outline: 3px solid #10b981; outline-offset: 2px; }
+
+        /* Header positioning to match index */
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 50px; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .logo { display: flex; align-items: center; font-size: 20px; font-weight: 700; color: #065f46; }
+        .logo-icon { width: 35px; height: 35px; background: linear-gradient(135deg, #10b981, #059669); border-radius: 8px; margin-right: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 14px; }
+        .nav-menu { display: flex; gap: 30px; align-items: center; }
+        .nav-item { padding: 8px 16px; border-radius: 20px; text-decoration: none; color: #374151; font-weight: 500; font-size: 14px; transition: all 0.2s ease; }
+        .nav-item.active { background: #10b981; color: #fff; }
+        .nav-item:hover:not(.active) { background: #f3f4f6; color: #10b981; }
+        .auth-buttons { display: flex; gap: 12px; align-items: center; }
+        .login-btn { background: transparent; border: none; color: #374151; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-weight: 500; font-size: 14px; transition: all 0.2s ease; }
+        .login-btn:hover { background: #f3f4f6; }
+        .start-btn { background: linear-gradient(135deg, #10b981, #059669); border: none; color: #fff; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 14px; transition: all 0.2s ease; }
+        .start-btn:hover { background: linear-gradient(135deg, #059669, #047857); }
+
+        /* Page container spacing aligned with index */
+        .jurnal-container { display: flex; gap: 40px; padding: 80px 50px; max-width: 1200px; margin: 0 auto; }
+        .sidebar { width: 280px; flex-shrink: 0; }
+        .main-content { flex: 1; min-width: 0; }
+        .main-content-title { font-size: 24px; font-weight: 700; color: #111827; margin-bottom: 16px; }
+
+        /* Simple card/elevation alignment */
+        .note-editor-card { background: #fff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); padding: 16px; }
+        .note-editor { width: 100%; min-height: 220px; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px; font: inherit; }
+        .editor-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 12px; }
+        .action-btn { background: #f3f4f6; border: none; color: #374151; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .save-btn { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
+        .save-btn:hover { background: linear-gradient(135deg, #059669, #047857); }
+
+        /* Sidebar list styling for consistency */
+        .sidebar-title { font-size: 16px; font-weight: 700; color: #111827; margin-bottom: 12px; }
+        .note-list { display: flex; flex-direction: column; gap: 10px; }
+        .note-item { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px; cursor: pointer; transition: box-shadow .2s ease, transform .2s ease; }
+        .note-item:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.08); transform: translateY(-2px); }
+        .note-item.active { border-color: #10b981; box-shadow: 0 4px 20px rgba(16,185,129,0.15); }
+        .note-title { color: #111827; font-weight: 600; }
+        .note-date { color: #6b7280; }
+        .new-note-btn { margin-top: 8px; background: linear-gradient(135deg, #10b981, #059669); color: #fff; border: none; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+
+        /* Responsive alignment */
+        @media (max-width: 1024px) { .jurnal-container { padding: 60px 30px; gap: 24px; } .sidebar { width: 240px; } }
+        @media (max-width: 768px) {
+            .header { padding: 15px 20px; flex-direction: column; gap: 15px; }
+            .nav-menu { flex-wrap: wrap; gap: 15px; justify-content: center; }
+            .jurnal-container { flex-direction: column; padding: 40px 20px; gap: 20px; }
+            .sidebar { width: 100%; }
+        }
+
+        /* Footer styles mirrored from index */
+        .footer { background: linear-gradient(135deg, #10b981, #059669); color: #fff; padding: 60px 50px 30px; margin-top: 50px; }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+        .footer-brand { max-width: 300px; }
+        .footer-logo { display: flex; align-items: center; font-size: 24px; font-weight: 700; margin-bottom: 15px; }
+        .footer-logo-icon { width: 35px; height: 35px; background: rgba(255,255,255,0.2); border-radius: 8px; margin-right: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 14px; }
+        .footer-description { font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.8); margin-bottom: 20px; }
+        .social-links { display: flex; gap: 12px; }
+        .social-link { width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; transition: all 0.3s ease; }
+        .social-link:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+        .footer-column h3 { font-size: 16px; font-weight: 600; margin-bottom: 20px; color: #fff; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; transition: color 0.3s ease; }
+        .footer-links a:hover { color: #fff; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; text-align: center; }
+        .footer-bottom p { color: rgba(255,255,255,0.6); font-size: 14px; }
+        @media (max-width: 768px) { .footer { padding: 40px 20px 20px; } .footer-content { grid-template-columns: 1fr; gap: 30px; text-align: center; } }
+
+        /* Modal styles */
+        .modal { position: fixed; inset: 0; z-index: 1000; }
+        .modal[hidden] { display: none !important; }
+        .modal-overlay { position: absolute; inset: 0; background: rgba(17,24,39,0.55); backdrop-filter: blur(2px); }
+        .modal-container { position: relative; min-height: 100%; display: flex; align-items: center; justify-content: center; padding: 24px; }
+        .modal-card { background: #ffffff; width: 100%; max-width: 520px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); padding: 24px; outline: none; }
+        .modal-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+        .modal-icon { width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, #10b981, #059669); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+        .modal-title { font-size: 20px; font-weight: 800; color: #111827; }
+        .modal-text { color: #6b7280; font-size: 14px; line-height: 1.7; margin: 8px 0 18px; }
+        .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+        .modal-btn { padding: 10px 16px; border-radius: 10px; font-weight: 700; font-size: 14px; border: none; cursor: pointer; }
+        .modal-btn.primary { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
+        .modal-btn.primary:hover { background: linear-gradient(135deg, #059669, #047857); }
+        .modal-btn.ghost { background: #f3f4f6; color: #374151; }
+        .modal-btn.ghost:hover { background: #e5e7eb; }
+        .no-scroll { overflow: hidden; }
+        @media (max-width: 480px) { .modal-card { padding: 20px; } .modal-title { font-size: 18px; } }
+    </style>
+</head>
+<body>
+    <header class="header" role="banner">
+        <div class="logo">
+            <div class="logo-icon">M</div>
+            MindfulAI
+        </div>
+        <nav class="nav-menu" aria-label="Navigasi utama">
+            <a href="index.html" class="nav-item">Home</a>
+            <a href="artikel.html" class="nav-item">Artikel Cerdas</a>
+            <a href="jurnal.html" class="nav-item active" aria-current="page">Jurnal Pintar</a>
+            <a href="about.html" class="nav-item">About Me</a>
+            <div class="auth-buttons">
+                <button class="login-btn" type="button" aria-label="Masuk">Login</button>
+                <button class="start-btn" type="button" aria-label="Mulai sekarang">✨ Start now</button>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" class="jurnal-container" role="main">
+        <aside class="sidebar">
+            <h3 class="sidebar-title">Catatan Tersimpan</h3>
+            <div class="note-list">
+                <div class="note-item active" data-id="1">
+                    <p class="note-title">Catatan Pertama</p>
+                    <small class="note-date">15 Mei 2024</small>
+                </div>
+                <div class="note-item" data-id="2">
+                    <p class="note-title">Ide Proyek Baru</p>
+                    <small class="note-date">14 Mei 2024</small>
+                </div>
+                <div class="note-item" data-id="3">
+                    <p class="note-title">Refleksi Hari Ini</p>
+                    <small class="note-date">13 Mei 2024</small>
+                </div>
+                <div class="note-item" data-id="4">
+                    <p class="note-title">Daftar Hal Penting</p>
+                    <small class="note-date">12 Mei 2024</small>
+                </div>
+                <button class="new-note-btn">+ Catatan Baru</button>
+            </div>
+        </aside>
+
+        <section class="main-content">
+            <h2 class="main-content-title">Tulis Catatan Pribadi Mu</h2>
+            <div class="note-editor-card">
+                <textarea id="noteEditor" class="note-editor" placeholder="Mulai tuliskan pikiranmu di sini..."></textarea>
+                <div class="editor-actions">
+                    <button class="action-btn discard-btn">Buang</button>
+                    <button class="action-btn save-btn">Simpan</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer" role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="footer-logo-icon">M</div>
+                    MindfulAI
+                </div>
+                <p class="footer-description">Platform kesehatan mental pintar yang menggunakan AI untuk memberikan dukungan personal dan insight mendalam untuk remaja Indonesia dalam menjaga kesehatan mental mereka.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.219-.359-1.219c0-1.142.662-1.997 1.482-1.997.699 0 1.219.219 1.219 1.482 0 .902-.576 2.263-.871 3.518-.248 1.219.609 2.262 1.748 2.262 2.262 0 3.995-2.786 3.995-6.781 0-2.786-1.748-4.533-4.533-4.533-3.078 0-4.916 2.349-4.916 4.533 0 .871.326 1.482.734 1.957.219.326.248.576.184.871-.041.326-.145.576-.145.576-.184.734-.576 1.219-1.219 1.219-.576 0-1.482-.734-1.482-2.262 0-2.262 1.748-4.533 5.043-4.533 2.613 0 4.71 1.997 4.71 4.533 0 3.439-1.997 5.957-4.533 5.957-2.262 0-4.71-1.219-4.71-3.078 0-.576.184-1.219.576-1.748.576-.734.734-1.482.734-2.262 0-1.219-.609-2.262-1.748-2.262-.871 0-1.482.734-1.482 1.748v11.987C18.624 21.104 23.971 16.737 23.971 10.987 23.971 5.367 18.604.029 11.987.029z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Layanan</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Konsultasi AI</a></li>
+                    <li><a href="#">Jurnal Harian</a></li>
+                    <li><a href="#">Artikel Kesehatan</a></li>
+                    <li><a href="#">Tes Psikologi</a></li>
+                    <li><a href="#">Komunitas Support</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Tentang</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Tentang Kami</a></li>
+                    <li><a href="#">Tim Ahli</a></li>
+                    <li><a href="#">Metodologi</a></li>
+                    <li><a href="#">Penelitian</a></li>
+                    <li><a href="#">Karir</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Bantuan</h3>
+                <ul class="footer-links">
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Kontak</a></li>
+                    <li><a href="#">Kebijakan Privasi</a></li>
+                    <li><a href="#">Syarat & Ketentuan</a></li>
+                    <li><a href="#">Panduan Pengguna</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 MindfulAI. Semua hak cipta dilindungi. Dibuat dengan ❤️ untuk kesehatan mental remaja Indonesia.</p>
+        </div>
+    </footer>
+
+    <!-- Start Journey Modal (Jurnal page) -->
+    <div id="startModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="startModalTitle" hidden>
+        <div id="startModalOverlay" class="modal-overlay" tabindex="-1"></div>
+        <div class="modal-container" aria-live="polite">
+            <div class="modal-card" tabindex="0">
+                <div class="modal-header">
+                    <div class="modal-icon">✨</div>
+                    <h3 class="modal-title" id="startModalTitle">Siap Memulai Jurnal Pintar?</h3>
+                </div>
+                <p class="modal-text">Catat pikiranmu, kelola emosi, dan pantau progres harian dengan dukungan MindfulAI.</p>
+                <div class="modal-actions">
+                    <button class="modal-btn primary" data-close-modal>Mulai Jurnal</button>
+                    <button class="modal-btn ghost" data-close-modal>Tidak, Nanti</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="jurnal-script.js"></script>
+    <script>
+        // Modal behavior for jurnal page
+        (function(){
+            const modal = document.getElementById('startModal');
+            const overlay = document.getElementById('startModalOverlay');
+            const openBtn = document.querySelector('.start-btn');
+            const closeButtons = document.querySelectorAll('[data-close-modal]');
+            if (!modal || !overlay || !openBtn) return;
+            function openModal(){
+                modal.removeAttribute('hidden');
+                const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+                if (scrollBarWidth > 0) document.body.style.paddingRight = scrollBarWidth + 'px';
+                document.body.classList.add('no-scroll');
+                modal.querySelector('.modal-card').focus();
+            }
+            function closeModal(){
+                modal.setAttribute('hidden', '');
+                document.body.classList.remove('no-scroll');
+                document.body.style.paddingRight = '';
+                openBtn.focus();
+            }
+            openBtn.addEventListener('click', openModal);
+            closeButtons.forEach(btn => btn.addEventListener('click', closeModal));
+            overlay.addEventListener('click', closeModal);
+            document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && !modal.hasAttribute('hidden')) closeModal(); });
+        })();
+    </script>
+</body>
+</html>
